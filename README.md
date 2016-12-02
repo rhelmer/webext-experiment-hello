@@ -20,6 +20,28 @@ That's it!  Read on for a more detailed explanation.
 
 ## Details
 
+### The webextension
+
+The webextension consists of two files: `manifest.json` and `background.js`.
+
+The first thing to note is that [`manifest.json`](manifest.json)
+includes the permission `"experiments.simple"`.
+
+Second, a new section to the `manifest.json` and specify where to load
+the two needed files for this experiment:
+
+```
+  "applications": {
+    "gecko": {
+      "id": "simple@experiments.addons.mozilla.org",
+        "experiment": { "script": "api.js", "schema": "schema.json" }
+    }
+  },
+```
+
+The background script calls the `hello()` function from the API extension and
+logs the result to the console.
+
 ### The API extension
 
 An API extension must contain two files: `schema.json` and `api.js`.
@@ -33,18 +55,6 @@ just like
 
 In this case, we have a simple schema that creates
 a new namespace called `hello`, which contains a single function `hello()`.
-
-First, add a new section to the `manifest.json` and specify where to load
-the two needed files for this experiment:
-
-```
-  "applications": {
-    "gecko": {
-      "id": "simple@experiments.addons.mozilla.org",
-        "experiment": { "script": "api.js", "schema": "schema.json" }
-    }
-  },
-```
 
 To use this API, a webextension will need to declare that it requires
 the `"experiments.simple"` permission -- more on that below.
@@ -64,13 +74,3 @@ available to a webextensions are wrapped with code generated from
 the schema that validates permissions, function arguments, etc.
 In this simple example, we have a single function `hello()` that just
 returns a fixed string.
-
-### The webextension
-
-The webextension consists of two files: `manifest.json` and `background.js`.
-
-One thing to note is that [`manifest.json`](manifest.json)
-includes the permission `"experiments.simple"`.
-
-The background script calls the `hello()` function from the API extension and
-logs the result to the console.
