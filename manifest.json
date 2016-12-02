@@ -4,6 +4,13 @@
   "description": "test the simple experiment",
   "version": "1.0",
 
+  "applications": {
+    "gecko": {
+      "id": "simple@experiments.addons.mozilla.org",
+        "experiment": { "script": "api.js", "schema": "schema.json" }
+    }
+  },
+
   "background": { "scripts": ["background.js"] },
 
   "permissions": [ "experiments.simple" ]
